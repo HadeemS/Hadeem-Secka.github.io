@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hello Me!</title>
+  <title>CSCE 242 – Main Page | Hadeem Secka</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,33 +11,40 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
     }
     .box {
-      text-align: center;
+      width: 90%;
+      max-width: 800px;
       padding: 30px;
       border: 2px solid #333;
       border-radius: 12px;
       background: #fff;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
-    h1 {
-      margin: 0;
-      font-size: 2.5rem;
-      color: #c0392b;
-    }
-    p {
-      margin-top: 10px;
-      font-size: 1.2rem;
-      color: #555;
-    }
+    h1 { margin: 0 0 10px; font-size: 2rem; color: #c0392b; }
+    h2 { margin-top: 20px; }
+    p  { margin-top: 10px; font-size: 1rem; color: #555; }
+    ul { margin: 10px 0 0 20px; }
+    a  { color: #c0392b; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .name { font-weight: bold; font-size: 1.1rem; }
   </style>
 </head>
 <body>
   <div class="box">
-    <h1>Wassup Deem!</h1>
-    <p>Welcome to my CSCE 242 GitHub Page 🚀</p>
+    <h1>CSCE 242 – Web Applications</h1>
+    <div class="name">Hadeem Secka</div>
+
+    <p>
+      This is my main portal for CSCE 242. All of my assignments will be linked here as I complete them.
+    </p>
+
+    <h2>Assignments</h2>
+    <ul>
+      <li><a href="assignments/assignment1/index.html">Assignment 1: Topic Website</a></li>
+    </ul>
   </div>
 </body>
 </html>
