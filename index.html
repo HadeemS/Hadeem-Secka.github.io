@@ -1,63 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CSCE 242 – Main Page | Hadeem Secka</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f8f9fa;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .box {
-      text-align: center;
-      padding: 30px;
-      border: 2px solid #333;
-      border-radius: 12px;
-      background: #fff;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-      width: 90%;
-      max-width: 700px;
-    }
-    h1 {
-      margin: 0;
-      font-size: 2rem;
-      color: #c0392b;
-    }
-    .name {
-      font-weight: bold;
-      margin-top: 5px;
-    }
-    p {
-      margin-top: 10px;
-      font-size: 1rem;
-      color: #555;
-    }
-    h2 {
-      margin-top: 20px;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      margin-top: 10px;
-    }
-    a {
-      color: #cf2917;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <div class="box">
     <h1>CSCE 242 – Web Applications</h1>
@@ -68,10 +18,57 @@
     </p>
 
     <h2>Assignments</h2>
-    <ul>
-      <li><a href="assignments/Assignment1/index.html">Assignment 1: Liverpool’s Summer Transfer Window</a></li>
-      <li><a href="assignments/Assignment2/index.html">Assignment 2: Best Fantasy Football Players of all time</a></li>
-    </ul>
+
+    <section class="assignments" aria-label="Assignment list">
+      <!-- Card: Assignment 1 -->
+      <article class="card">
+        <a class="thumb" href="assignments/Assignment1/index.html">
+          <img src="images/Liverpool.png" alt="Screenshot of Assignment 1 page">
+        </a>
+        <h3>Assignment 1 – Liverpool’s Summer Transfer Window</h3>
+        <p class="desc">
+          Built a semantic HTML page summarizing transfer activity with headings, lists,
+          and clean structure focused on accessibility.
+        </p>
+        <div class="actions">
+          <a class="btn" href="assignments/Assignment1/index.html">Open</a>
+          <a class="btn ghost"
+            href="https://github.com/hadeems/Hadeem-Secka.github.io/tree/main/assignments/Assignment1">Code</a>
+        </div>
+      </article>
+
+      <!-- Card: Assignment 2 -->
+      <article class="card">
+        <a class="thumb" href="assignments/Assignment2/index.html">
+          <img src="images/FantasyFootball.png" alt="Screenshot of Assignment 2 page">
+        </a>
+        <h3>Assignment 2 – Best Fantasy Football Players of All Time</h3>
+        <p class="desc">
+          Added CSS for a cohesive color palette, typography, and spacing; practiced
+          the box model and simple responsive tweaks.
+        </p>
+        <div class="actions">
+          <a class="btn" href="assignments/Assignment2/index.html">Open</a>
+          <a class="btn ghost"
+            href="https://github.com/hadeems/Hadeem-Secka.github.io/tree/main/assignments/Assignment2">Code</a>
+        </div>
+      </article>
+      <!-- Card: Assignment 3 -->
+      <article class="card">
+        <a class="thumb" href="assignments/Assignment3/index.html">
+          <img src="images/Assignment3.png" alt="Screenshot of Assignment 3 page">
+        </a>
+        <h3>Assignment 3 – Page Layout</h3>
+        <p class="desc">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet, arcu id tristique sagittis, nisi metus
+          porta diam, a scelerisque turpis elit in augue. Quisque ut posuere est.
+        </p>
+        <div class="actions">
+          <a class="btn" href="assignments/Assignment3/index.html">Open</a>
+          <a class="btn ghost" href="
+      <article class=" card">
+    </section>
   </div>
 </body>
+
 </html>
