@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #f4f6f8;
+}
+
+header {
+  padding: 1rem;
+}
+header h1 {
+  margin: 0;
+  color: #2a4d69;
+}
+header h2 {
+  margin: 0.5rem 0 1rem;
+  color: #c94c4c;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 250px;
+  min-height: 200px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+#weatherImage {
+  width: 100%;
+  max-width: 200px;
+  border-radius: 8px;
+}
+
+footer {
+  margin-top: 2rem;
+  padding: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
