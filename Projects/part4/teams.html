@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GameDay — Teams</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Skip link + Header -->
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="navbar">
+      <div class="brand">
+        <a class="brand-link" href="index.html">
+          <img class="brand-logo" src="images/logo-gameday-wordmark-red.svg" alt="GameDay">
+        </a>
+      </div>
+
+      <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav id="primary-nav" class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="teams.html" aria-current="page">Teams</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="news.html">News</a>
+        <a href="favorites.html">Favorites</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <h1 class="section-title">Teams</h1>
+    <p class="page-sub">Browse squads and open a sample preview page.</p>
+
+    <section class="grid" aria-label="Team list">
+      <article class="card">
+        <div class="frame">
+          <img src="images/falconslogo.png" alt="Atlanta Falcons crest">
+        </div>
+        <h3>Atlanta Falcons</h3>
+        <p>Record: 10–3 • Streak: W3</p>
+        <div class="actions"><a class="btn" href="team-atlanta-falcons.html">Open preview</a></div>
+      </article>
+
+      <article class="card">
+        <div class="frame">
+          <img src="images/hawks.png" alt="Atlanta Hawks crest">
+        </div>
+        <h3>Atlanta Hawks</h3>
+        <p>Record: 8–5 • Streak: L1</p>
+        <div class="actions"><a class="btn" href="team-atlanta-hawks.html">Open preview</a></div>
+      </article>
+
+      <article class="card">
+        <div class="frame">
+          <img src="images/united.png" alt="Manchester United crest">
+        </div>
+        <h3>Manchester United</h3>
+        <p>Record: 9–4 • Streak: W1</p>
+        <div class="actions"><a class="btn" href="team-manchester-united.html">Open preview</a></div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">© GameDay</footer>
+  <script src="script.js"></script>
+</body>
+</html>
