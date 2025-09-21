@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assignment 6 — Planting & Digital Clock</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Header / Nav -->
+  <header class="site-header">
+    <div class="navbar">
+      <a class="brand-link" href="#">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Assignment 6
+      </a>
+
+      <div class="nav-row" id="navRow">
+        <button class="menu-toggle" id="menuToggle" aria-controls="navList" aria-expanded="false">
+          Menu <span class="arrow" aria-hidden="true">▼</span>
+        </button>
+
+        <ul class="nav-list" id="navList">
+          <li><a href="#" data-target="planting" id="navEx1">Exercise 1: Planting</a></li>
+          <li><a href="#" data-target="clock"    id="navEx2">Exercise 2: Digital Clock</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="container" id="main">
+    <section class="hero" aria-label="Overview & tabs">
+      <h1>Setting up the Webpage</h1>
+      <div class="tabs">
+        <button class="tab-btn active" id="btnEx1">Exercise 1: Planting</button>
+        <button class="tab-btn" id="btnEx2">Exercise 2: Digital Clock</button>
+      </div>
+    </section>
+
+    <!-- Exercise 1: Planting -->
+    <section class="card" id="plantingSection">
+      <h2 tabindex="-1">Exercise 1: Planting</h2>
+      <p class="msg">Move the slider to set <strong>days since you watered</strong>. A message and picture will update.</p>
+
+      <div class="form-grid">
+        <label for="days">Days since watering (1–12):</label>
+        <div>
+          <input type="range" id="days" min="1" max="12" step="1" value="1" />
+          <div><small>Selected: <output id="daysOut">1</output> day(s)</small></div>
+        </div>
+
+        <div class="row-span result">
+          <div>
+            <h3 id="plantMsg" style="margin:0 0 6px;">Looking fresh!</h3>
+            <p class="msg" id="plantNote">Keep enjoying the sunshine.</p>
+          </div>
+          <div class="preview" aria-live="polite" aria-label="Plant status image" id="plantImg"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Exercise 2: Digital Clock -->
+    <section class="card hidden" id="clockSection">
+      <h2 tabindex="-1">Exercise 2: Our Digital Clock</h2>
+      <div class="clock" id="clock">--:-- --</div>
+      <p class="clock-sub" id="clockDate">Loading…</p>
+    </section>
+  </main>
+
+  <footer>© Assignment 6</footer>
+  <script src="script.js"></script>
+</body>
+</html>
