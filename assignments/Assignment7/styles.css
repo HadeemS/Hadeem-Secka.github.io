@@ -12,8 +12,8 @@
   --sun:#ffd21f;
   --moon:#f0edcf;
   --moon-shadow:#0b0b19;
-  --mountain:#7da3b3;
-  --mountain-dark:#658c9d;
+  --mountain:#66766d;
+  --mountain-dark:#193324;
   --ink:#24424b;
 }
 
@@ -128,7 +128,8 @@ button:hover{transform:translateY(-1px)}
 }
 
 /* Trees (identical) */
-.tree{position:absolute;bottom:90px;width:80px;height:120px}
+.tree{position:absolute;bottom:90px;width:80px;height:120px;transform:rotate(180deg);transform-origin:center bottom}
+
 .trunk{
   width:22px;height:52px;background:var(--trunk);margin:0 auto;border-radius:6px
 }
