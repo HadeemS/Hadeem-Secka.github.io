@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assignment 7 – Loops</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="banner">
+    <h1>Assignment 7</h1>
+    <p class="subtitle">Loops</p>
+    <div class="controls">
+      <button id="drawBtn" aria-label="Draw Scene">Draw Scene</button>
+      <button id="clearBtn" aria-label="Clear Scene" class="ghost">Clear</button>
+    </div>
+  </header>
+
+  <!-- Drawing surface -->
+  <main id="scene" class="scene" aria-live="polite" aria-label="Scenery canvas"></main>
+
+  <section class="requirements">
+    <h2>When you click <em>Draw Scene</em>:</h2>
+    <ul>
+      <li>6 identical clouds will appear.</li>
+      <li>6 identical trees will appear.</li>
+      <li>A sun or moon will appear depending on the time of day.</li>
+    </ul>
+    <h3>Clouds & Trees</h3>
+    <p>
+      Created with <code>for</code> loops (6 iterations each). All visuals are CSS art — no images.
+    </p>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

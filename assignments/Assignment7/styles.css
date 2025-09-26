@@ -1,0 +1,146 @@
+:root{
+  --sky-day-top:#bfe1ec;
+  --sky-day-bottom:#89c6dc;
+  --sky-night-top:#0b0b19;
+  --sky-night-bottom:#00010a;
+  --grass:#72c86d;
+  --ground:#58b156;
+  --cloud:#f4f7fa;
+  --cloud-2:#e8edf2;
+  --trunk:#9a6138;
+  --leaf:#168b1b;
+  --sun:#ffd21f;
+  --moon:#f0edcf;
+  --moon-shadow:#0b0b19;
+  --mountain:#7da3b3;
+  --mountain-dark:#658c9d;
+  --ink:#24424b;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--ink);
+  background:#f7fafc;
+}
+
+/* Header */
+.banner{
+  text-align:center;
+  padding:28px 16px 12px;
+  background:linear-gradient(180deg, var(--sky-day-top), var(--sky-day-bottom));
+}
+h1{margin:0;font-weight:800;letter-spacing:.4px;color:#2f5f6c}
+.subtitle{margin:.2rem 0 1rem;color:#e27a86;font-weight:700}
+.controls{display:flex;gap:10px;justify-content:center}
+button{
+  border:1px solid #2f5f6c;background:#fff;color:#2f5f6c;
+  padding:8px 14px;border-radius:10px;cursor:pointer;font-weight:600;
+  transition:.15s transform ease, .15s box-shadow ease;
+}
+button:hover{transform:translateY(-1px)}
+.ghost{background:transparent}
+
+/* Scene */
+.scene{
+  position:relative;
+  height:460px;
+  overflow:hidden;
+  transition:background .4s ease;
+  border-top:0;
+}
+
+/* day/night gradient backdrops */
+.scene.day{
+  background:linear-gradient(180deg, var(--sky-day-top) 0%, var(--sky-day-bottom) 70%);
+}
+.scene.night{
+  background:linear-gradient(180deg, var(--sky-night-top) 0%, var(--sky-night-bottom) 70%);
+}
+
+/* ground */
+.scene::after{
+  content:"";
+  position:absolute;left:0;right:0;bottom:0;height:130px;
+  background:linear-gradient(180deg, var(--grass), var(--ground));
+}
+
+/* mountains (CSS triangles) */
+.mountains .mt{
+  position:absolute;bottom:130px;width:0;height:0;border-left:120px solid transparent;
+  border-right:120px solid transparent;border-bottom:160px solid var(--mountain);
+  filter:drop-shadow(0 4px 0 rgba(0,0,0,.06));
+}
+.mountains .mt.dark{ border-bottom-color:var(--mountain-dark); }
+.mountains .mt.m1{ left:50px }
+.mountains .mt.m2{ left:220px; transform:scale(1.1) }
+.mountains .mt.m3{ left:420px; transform:scale(1.25) }
+.mountains .mt.m4{ left:660px; transform:scale(1.1) }
+.mountains .mt.m5{ left:860px }
+
+/* SUN */
+.sun{
+  position:absolute;top:26px;right:36px;width:90px;height:90px;border-radius:50%;
+  background:var(--sun);
+  box-shadow:0 0 24px 6px rgba(255,210,31,.6);
+}
+.sun::after{
+  /* soft rays */
+  content:"";position:absolute;inset:-8px;border-radius:50%;
+  border:6px solid rgba(255,210,31,.4);
+  animation:spin 14s linear infinite;
+}
+
+/* MOON (crescent) */
+.moon{
+  position:absolute;top:26px;right:36px;width:86px;height:86px;border-radius:50%;
+  background:var(--moon);
+  box-shadow:0 0 14px 2px rgba(255,255,255,.2);
+}
+.moon::after{
+  content:"";position:absolute;top:-10px;right:-12px;width:86px;height:86px;border-radius:50%;
+  background:var(--moon-shadow);
+}
+
+/* STARS */
+.star{
+  position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;
+  opacity:.8;animation:twinkle 2.2s ease-in-out infinite;
+}
+@keyframes twinkle{50%{opacity:.2;transform:scale(.7)}}
+
+/* Clouds: pill + two bubbles (identical) */
+.cloud{
+  position:absolute;width:160px;height:52px;background:var(--cloud);
+  border-radius:40px;filter:drop-shadow(0 2px 0 rgba(0,0,0,.05));
+  animation:float 28s linear infinite;
+}
+.cloud::before,.cloud::after{
+  content:"";position:absolute;border-radius:50%;background:var(--cloud-2);
+}
+.cloud::before{width:56px;height:56px;left:24px;top:-20px}
+.cloud::after {width:68px;height:68px;right:22px;top:-28px}
+@keyframes float{ 
+  0%{ transform:translateX(0) } 
+  100%{ transform:translateX(60px) } 
+}
+
+/* Trees (identical) */
+.tree{position:absolute;bottom:90px;width:80px;height:120px}
+.trunk{
+  width:22px;height:52px;background:var(--trunk);margin:0 auto;border-radius:6px
+}
+.leaves{
+  width:76px;height:76px;border-radius:50%;background:var(--leaf);
+  margin:-22px auto 0;box-shadow:0 0 0 12px rgba(0,0,0,.02) inset;
+}
+
+/* Accessibility / layout text */
+.requirements{max-width:900px;margin:18px auto 48px;padding:0 18px}
+.requirements h2{margin-bottom:.4rem}
+.requirements ul{margin-top:.2rem}
+
+/* subtle spin for sun ring */
+@keyframes spin {to{transform:rotate(360deg)}}
