@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GameDay — Schedule</title>
   <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sporty-theme.css">
+
 </head>
 <body>
-  <!-- Skip link + Header -->
   <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Shared Header -->
   <header class="site-header">
     <div class="navbar">
       <div class="brand">
@@ -32,42 +35,51 @@
   </header>
 
   <main id="main" class="container">
-    <h1 class="section-title">Upcoming Games</h1>
-    <p class="page-sub">Finalized fixtures for the next three weeks.</p>
+    <!-- Hero with search -->
+    <section class="hero" aria-label="Team schedule search">
+      <div class="copy">
+        <h1>Team Schedules</h1>
+        <p class="page-sub">Type a team name or pick a chip to view its upcoming fixtures. Works on mobile & desktop.</p>
 
-    <table class="table" aria-label="Upcoming games">
-      <thead>
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Matchup</th>
-          <th scope="col">Venue</th>
-          <th scope="col">Broadcast</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Oct 05</td>
-          <td>Falcons vs Vikings</td>
-          <td>Mercedes-Benz Stadium</td>
-          <td> NFL Network</td>
-        </tr>
-        <tr>
-          <td>Oct 12</td>
-          <td>United vs Tottenham</td>
-          <td>Old Trafford</td>
-          <td> CBS Network</td>
-        </tr>
-        <tr>
-          <td>Oct 19</td>
-          <td>Hawks vs Heat</td>
-          <td>Bank Of America Arena</td>
-          <td>TNT Network</td>
-        </tr>
-      </tbody>
-    </table>
+        <form id="scheduleSearch" class="controls" role="search">
+          <label class="sr-only" for="teamQuery">Team name</label>
+          <input id="teamQuery" name="team" type="search" placeholder="Search teams (e.g., Atlanta Falcons)"
+                 list="teamsDatalist" autocomplete="off" inputmode="search" />
+          <datalist id="teamsDatalist"></datalist>
+
+          <button class="btn" id="showBtn" type="submit">Show schedule</button>
+          <button class="btn ghost" id="printBtn" type="button" title="Print this schedule">Print</button>
+        </form>
+
+        <div class="chips" aria-label="Quick picks">
+          <button class="chip" data-team="Atlanta Falcons">Atlanta Falcons</button>
+          <button class="chip" data-team="Manchester United">Manchester United</button>
+          <button class="chip" data-team="Atlanta Hawks">Atlanta Hawks</button>
+        </div>
+      </div>
+
+      <div class="media frame">
+        <img src="images/tipoff.jpg" alt="Scoreboard with schedules" loading="lazy"
+             onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22><rect width=%221200%22 height=%22600%22 fill=%22%23f5f6f7%22/><text x=%22600%22 y=%22305%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2240%22 fill=%22%23666%22>Team Schedules</text></svg>';">
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="card" aria-live="polite">
+      <h2 id="teamTitle" class="section-title">Pick a team to view its schedule</h2>
+      <div id="scheduleResults"></div>
+    </section>
+
+    <noscript>
+      <p><strong>Note:</strong> JavaScript is required to search and render schedules.</p>
+    </noscript>
   </main>
 
   <footer class="site-footer">© GameDay</footer>
+
+  <!-- Your shared hamburger JS -->
   <script src="script.js"></script>
+  <!-- New page-specific logic -->
+  <script src="schedule.js"></script>
 </body>
 </html>
