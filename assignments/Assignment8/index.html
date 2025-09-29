@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assignment 8 — Arrays</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap" id="main">
+    <header class="mast">
+      <h1>Assignment 8</h1>
+      <p class="sub">Arrays</p>
+    </header>
+
+    <!-- Gallery (JS will populate) -->
+    <section id="gallery" class="gallery" aria-label="Adoptable pets"></section>
+
+
+  </main>
+
+  <!-- Popup / Modal -->
+  <section id="popup" class="popup hidden" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+    <div class="popup-inner" role="document">
+      <div class="popup-head">
+        <h3 id="popupTitle"><span id="petName"></span> <small>after adoption</small></h3>
+        <button id="close" class="close" aria-label="Close dialog" title="Close">&#10006;</button>
+      </div>
+      <div class="popup-body">
+        <img id="popupImg" src="" alt="" />
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
