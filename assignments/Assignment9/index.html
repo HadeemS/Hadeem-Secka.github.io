@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assignment 9 — Paintings (Classes + Modal)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-head">
+    <h1>Assignment 9</h1>
+    <p class="sub">Classes • Array • Modal dialog</p>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h2 class="visually-hidden">Gallery</h2>
+      <div id="gallery" class="gallery"></div>
+    </section>
+  </main>
+
+  <!-- Modal (built once, populated via JS) -->
+  <div id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+    <div class="modal__backdrop" data-close></div>
+    <article class="modal__panel" role="document">
+      <button class="modal__close" aria-label="Close" data-close>&times;</button>
+      <header class="modal__head">
+        <h3 id="modal-title" class="modal__title"></h3>
+        <p class="modal__byline"></p>
+      </header>
+      <div class="modal__imgwrap">
+        <img id="modal-img" alt="" />
+      </div>
+      <footer class="modal__foot">
+        <span id="modal-frame" class="badge"></span>
+      </footer>
+    </article>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
