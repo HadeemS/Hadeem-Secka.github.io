@@ -17,7 +17,7 @@ body {
 /* Centered content box */
 .box {
   text-align: center;
-  padding: 30px;
+  padding: 50px;
   border: 2px solid #333;
   border-radius: 12px;
   background: #fff;
