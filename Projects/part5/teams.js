@@ -1,14 +1,11 @@
-/* Teams (JSON) — Project 5
-   This page fetches a JSON list and renders cards.
-   Submission note for graders:
+/* Project 5 JSON page
    Page: Projects/part5/teams.html
-   Data: Projects/part5/data/teams.json (fetched via GitHub Pages URL below)
+   Data: Projects/part5/data/teams.json (fetched from GitHub Pages URL)
 */
 
-// IMPORTANT: use your GitHub Pages URL (not a local file path)
 const DATA_URL = "https://hadeems.github.io/Hadeem-Secka.github.io/Projects/part5/data/teams.json";
 
-const $ = (s, r = document) => r.querySelector(s);
+const $ = (s, r=document) => r.querySelector(s);
 const teamList = $("#teamList");
 const loadMsg  = $("#loadMsg");
 const qInput   = $("#q");
@@ -16,19 +13,14 @@ const clearBtn = $("#clearBtn");
 
 let TEAMS = [];
 
-const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
 
 function placeholderSVG(text){
-  return `data:image/svg+xml;utf8,
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'>
-    <rect width='800' height='600' fill='#f5f6f8'/>
-    <text x='400' y='300' text-anchor='middle' font-family='sans-serif' font-size='36' fill='#888'>${text}</text>
-  </svg>`.replace(/\n|\s{2,}/g," ");
+  return `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'><rect width='800' height='600' fill='#f5f6f8'/><text x='400' y='300' text-anchor='middle' font-family='sans-serif' font-size='36' fill='#888'>${text}</text></svg>`.replace(/\n|\s{2,}/g," ");
 }
 
 function card(t){
   const s = slug(t.name);
-  // Try linking to any existing team page using your naming pattern
   const previewHref =
     s.includes("atlanta-falcons") ? "team-atlanta-falcons.html" :
     s.includes("manchester-united") ? "team-manchester-united.html" :
@@ -68,7 +60,7 @@ async function init(){
     loadMsg.textContent = `Loaded ${TEAMS.length} teams from JSON`;
   }catch(err){
     console.error(err);
-    loadMsg.textContent = "Could not load JSON. Check the URL and that your JSON is publicly accessible.";
+    loadMsg.textContent = "Could not load JSON. Check the URL and that your JSON is public.";
     teamList.innerHTML = `<p class="desc">Error: ${String(err.message || err)}</p>`;
   }
 }
