@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GameDay — News</title>
+  <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sporty-theme.css">
+
+</head>
+<body>
+  <!-- Skip link + Header -->
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="navbar">
+      <div class="brand">
+        <a class="brand-link" href="index.html">
+          <img class="brand-logo" src="images/logo-gameday-wordmark-red.svg" alt="GameDay">
+        </a>
+      </div>
+
+      <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav id="primary-nav" class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="teams.html">Teams</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="news.html" aria-current="page">News</a>
+        <a href="favorites.html">Favorites</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <h1 class="section-title">Latest News</h1>
+    <p class="page-sub">Hand-picked stories from around the league.</p>
+
+    <div class="grid" style="grid-template-columns: 1fr; gap: 16px;">
+      <article class="card" style="grid-column: 1 / -1;">
+        <div class="frame">
+          <img src="images/penix.png" alt="Falcons quarterback scanning the field">
+        </div>
+        <div class="actions">
+  <a class="btn" href="team-atlanta-falcons.html">Open preview</a>
+  <a class="btn ghost" href="team-news-atlanta-falcons.html">Team news</a>
+</div>
+        <h3>Falcons streak hits three</h3>
+        <p>The Falcons defense clamps down again, setting the tone for a pivotal road win.</p>
+      </article>
+
+      <article class="card" style="grid-column: 1 / -1;">
+        <div class="frame">
+          <img src="images/amad.png" alt="Manchester United winger attacking space">
+        </div>
+        <div class="actions">
+  <a class="btn" href="team-manchester-united.html">Open preview</a>
+  <a class="btn ghost" href="team-news-manchester-united.html">Team news</a>
+</div>
+        <h3>United holds on late</h3>
+        <p>Back-to-back one-goal wins have Manchester climbing the standings.</p>
+      </article>
+
+      <article class="card" style="grid-column: 1 / -1;">
+        <div class="frame">
+          <img src="images/hawksfan.png" alt="Hawks supporters in the away section">
+        </div>
+        <div class="actions">
+  <a class="btn" href="team-atlanta-hawks.html">Open preview</a>
+  <a class="btn ghost" href="team-news-atlanta-hawks.html">Team news</a>
+</div>
+        <h3>Hawks look to rebound</h3>
+        <p>The Hawks focuses on set-piece execution heading into a challenging stretch.</p>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">© GameDay</footer>
+  <script src="script.js"></script>
+</body>
+</html>

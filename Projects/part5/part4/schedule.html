@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GameDay — Schedule</title>
+  <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sporty-theme.css">
+
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Shared Header -->
+  <header class="site-header">
+    <div class="navbar">
+      <div class="brand">
+        <a class="brand-link" href="index.html">
+          <img class="brand-logo" src="images/logo-gameday-wordmark-red.svg" alt="GameDay">
+        </a>
+      </div>
+
+      <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav id="primary-nav" class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="teams.html">Teams</a>
+        <a href="schedule.html" aria-current="page">Schedule</a>
+        <a href="news.html">News</a>
+        <a href="favorites.html">Favorites</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <!-- Hero with search -->
+    <section class="hero" aria-label="Team schedule search">
+      <div class="copy">
+        <h1>Team Schedules</h1>
+        <p class="page-sub">Type a team name or pick a chip to view its upcoming fixtures. Works on mobile & desktop.</p>
+
+        <form id="scheduleSearch" class="controls" role="search">
+          <label class="sr-only" for="teamQuery">Team name</label>
+          <input id="teamQuery" name="team" type="search" placeholder="Search teams (e.g., Atlanta Falcons)"
+                 list="teamsDatalist" autocomplete="off" inputmode="search" />
+          <datalist id="teamsDatalist"></datalist>
+
+          <button class="btn" id="showBtn" type="submit">Show schedule</button>
+          <button class="btn ghost" id="printBtn" type="button" title="Print this schedule">Print</button>
+        </form>
+
+        <div class="chips" aria-label="Quick picks">
+          <button class="chip" data-team="Atlanta Falcons">Atlanta Falcons</button>
+          <button class="chip" data-team="Manchester United">Manchester United</button>
+          <button class="chip" data-team="Atlanta Hawks">Atlanta Hawks</button>
+        </div>
+      </div>
+
+      <div class="media frame">
+        <img src="images/tipoff.jpg" alt="Scoreboard with schedules" loading="lazy"
+             onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22><rect width=%221200%22 height=%22600%22 fill=%22%23f5f6f7%22/><text x=%22600%22 y=%22305%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2240%22 fill=%22%23666%22>Team Schedules</text></svg>';">
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="card" aria-live="polite">
+      <h2 id="teamTitle" class="section-title">Pick a team to view its schedule</h2>
+      <div id="scheduleResults"></div>
+    </section>
+
+    <noscript>
+      <p><strong>Note:</strong> JavaScript is required to search and render schedules.</p>
+    </noscript>
+  </main>
+
+  <footer class="site-footer">© GameDay</footer>
+
+  <!-- Your shared hamburger JS -->
+  <script src="script.js"></script>
+  <!-- New page-specific logic -->
+  <script src="schedule.js"></script>
+</body>
+</html>

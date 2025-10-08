@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GameDay — Teams (JSON)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Shared header (same as your Part 4/5) -->
+  <header class="site-header">
+    <div class="navbar">
+      <div class="brand">
+        <a class="brand-link" href="index.html">
+          <img class="brand-logo" src="images/logo-gameday-wordmark-red.svg" alt="GameDay">
+        </a>
+      </div>
+
+      <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav id="primary-nav" class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="teams.html" aria-current="page">Teams</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="news.html">News</a>
+        <a href="favorites.html">Favorites</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <section class="hero" aria-label="Teams">
+      <div class="copy">
+        <h1>Teams (Loaded from JSON)</h1>
+        <p class="page-sub">
+          This page loads <strong>Projects/part5/data/teams.json</strong> and builds the team cards on the fly.
+        </p>
+
+        <form id="teamSearch" class="controls" role="search">
+          <label class="sr-only" for="q">Search teams</label>
+          <input id="q" type="search" placeholder="Search by name, city, league…" autocomplete="off" />
+          <button class="btn" type="submit">Search</button>
+          <button class="btn ghost" id="clearBtn" type="button">Clear</button>
+        </form>
+      </div>
+      <div class="media frame">
+        <img src="images/teams-hero.jpg" alt="Team crests collage"
+             onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22><rect width=%221200%22 height=%22600%22 fill=%22%23f5f6f7%22/><text x=%22600%22 y=%22300%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2240%22 fill=%22%23666%22>Teams — JSON</text></svg>';">
+      </div>
+    </section>
+
+    <!-- Render target -->
+    <h2 class="section-title">All Teams</h2>
+    <section id="teamList" class="grid" aria-label="Teams list"></section>
+
+    <div id="loadMsg" class="credit" aria-live="polite" style="margin-top:12px;"></div>
+  </main>
+
+  <footer class="site-footer">© GameDay</footer>
+
+  <!-- Your hamburger toggle -->
+  <script src="script.js"></script>
+  <!-- JSON loader for this page -->
+  <script src="teams.js"></script>
+</body>
+</html>
