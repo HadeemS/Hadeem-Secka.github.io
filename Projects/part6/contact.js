@@ -1,63 +1,74 @@
-// contact.js — async submit, success/error message inline, no redirect
-
-const FORM_ENDPOINT = "https://formspree.io/f/YOUR_FORMSPREE_ID"; // <-- replace this!
+// contact.js — Web3Forms (async email submission, inline success/error message, no redirect)
+// Author: Hadeem Secka
 
 const $ = (s, r=document) => r.querySelector(s);
-const form = $("#contactForm");
+const form      = $("#contactForm");
 const statusBox = $("#formStatus");
-const sendBtn = $("#sendBtn");
+const sendBtn   = $("#sendBtn");
 
+const ENDPOINT = "https://api.web3forms.com/submit";  // Web3Forms API endpoint
+const ACCESS_KEY = "4b370dcc-6fd1-4c70-ad6c-98ba1e9a9835"; // Your Web3Forms Access Key
+
+// Helper to update the status message area
 function setStatus(type, msg){
-  statusBox.className = `status ${type}`;
-  statusBox.textContent = msg;
+  statusBox.className = `status ${type || ""}`;
+  statusBox.textContent = msg || "";
 }
 
+// Form submit event
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  setStatus("", ""); // clear
+  setStatus("", "");
 
-  // HTML5 validation first
+  // Validate before sending
   if (!form.checkValidity()){
-    // trigger native UI per-field
     form.reportValidity();
-    setStatus("error", "Please fix the highlighted fields and try again.");
+    setStatus("error", "Please fill out all required fields correctly.");
     return;
   }
 
-  // Build payload
-  const data = {
-    name:   $("#name").value.trim(),
-    email:  $("#email").value.trim(),
-    subject:$("#subject").value.trim(),
-    message:$("#message").value.trim()
-  };
+  // Prevent spam (honeypot)
+  const botcheck = form.querySelector("[name='botcheck']");
+  if (botcheck && botcheck.checked){
+    setStatus("success", "Thanks! Your message has been sent.");
+    form.reset();
+    return;
+  }
 
-  // Send
-  try{
+  // Build form data
+  const formData = new FormData(form);
+  formData.append("access_key", ACCESS_KEY);  // Required for Web3Forms
+  formData.append("from_name", "GameDay Contact Form");
+  formData.append("subject", `New message from ${$("#name").value || "Visitor"}`);
+
+  try {
     sendBtn.disabled = true;
     sendBtn.textContent = "Sending…";
 
-    const res = await fetch(FORM_ENDPOINT, {
+    const response = await fetch(ENDPOINT, {
       method: "POST",
-      headers: { "Accept": "application/json", "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      headers: { "Accept": "application/json" },
+      body: formData
     });
 
-    if (res.ok){
-      setStatus("success", "Thanks! Your message has been sent.");
+    const result = await response.json().catch(() => ({}));
+
+    if (response.ok && result.success) {
+      setStatus("success", "✅ Thanks! Your message has been sent successfully.");
       form.reset();
     } else {
-      const err = await res.json().catch(()=> ({}));
-      const msg = (err && err.error) ? err.error : `Error ${res.status}`;
-      setStatus("error", `Could not send: ${msg}`);
+      const msg = result?.message || result?.detail || `Error ${response.status}`;
+      setStatus("error", `❌ Message failed to send: ${msg}`);
     }
-  } catch (err){
-    setStatus("error", "Network error. Please try again in a moment.");
+
+  } catch (error) {
+    console.error(error);
+    setStatus("error", "⚠️ Network error. Please try again in a moment.");
   } finally {
     sendBtn.disabled = false;
     sendBtn.textContent = "Send";
   }
 });
 
-// Optional: Reset clears status
-$("#resetBtn").addEventListener("click", () => setStatus("", ""));
+// Reset clears messages
+$("#resetBtn")?.addEventListener("click", () => setStatus("", ""));
