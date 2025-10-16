@@ -1,0 +1,14 @@
+{
+  "source": "GameDay Project 5 – JSON Teams",
+  "items": [
+    { "_id": 1, "name": "Atlanta Falcons", "city": "Atlanta, GA", "sport": "Football", "league": "NFL", "record": "3–0", "streak": "W3", "img_name": "images/falconslogo.png" },
+    { "_id": 2, "name": "Manchester United", "city": "Manchester, UK", "sport": "Soccer", "league": "Premier League", "record": "2–1–0", "streak": "W2", "img_name": "images/united.png" },
+    { "_id": 3, "name": "Atlanta Hawks", "city": "Atlanta, GA", "sport": "Basketball", "league": "NBA", "record": "2–1", "streak": "L1", "img_name": "images/hawks.png" },
+    { "_id": 4, "name": "South Carolina", "city": "Columbia, SC", "sport": "Football", "league": "NCAA", "record": "2–2", "streak": "W1", "img_name": "images/gamecocks.png" },
+    { "_id": 5, "name": "Atlanta United", "city": "Atlanta, GA", "sport": "Soccer", "league": "MLS", "record": "5–3–2", "streak": "W1", "img_name": "images/ATLUnited.png" },
+    { "_id": 6, "name": "Liverpool FC", "city": "Liverpool, UK", "sport": "Soccer", "league": "Cup", "record": "—", "streak": "—", "img_name": "images/liverpool.png" },
+    { "_id": 7, "name": "Sacremento Kings", "city": "Sacremento, CA", "sport": "Basketball", "league": "League", "record": "6–4–1", "streak": "W2", "img_name": "images/kings.png" },
+    { "_id": 8, "name": "Coastal Carolina", "city": "Conway, SC", "sport": "Football", "league": "NCAA", "record": "7–2", "streak": "W4", "img_name": "images/coastal.png" },
+    { "_id": 9, "name": "Green Bay Packers", "city": "Green Bay,WI ", "sport": "Football", "league": "NFL", "record": "9–6", "streak": "W1", "img_name": "images/packers.png" }
+  ]
+}

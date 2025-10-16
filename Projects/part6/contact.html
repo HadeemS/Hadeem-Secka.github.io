@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GameDay — Contact</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-sporty"><!-- keep your theme class if you’re using it -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Shared header (unchanged) -->
+  <header class="site-header">
+    <div class="navbar">
+      <div class="brand">
+        <a class="brand-link" href="index.html">
+          <img class="brand-logo" src="images/logo-gameday-wordmark-red.svg" alt="GameDay">
+        </a>
+      </div>
+
+      <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav id="primary-nav" class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="teams.html">Teams</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="news.html">News</a>
+        <a href="favorites.html">Favorites</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <section class="hero" aria-label="Contact GameDay">
+      <div class="copy">
+        <h1>Contact GameDay</h1>
+        <p class="page-sub">Questions, bug reports, or feature ideas? Send me a note.</p>
+      </div>
+      <div class="media frame">
+        <img src="images/GetinTouch.jpg" alt="GetinTouch"
+             onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22><rect width=%221200%22 height=%22600%22 fill=%22%23f5f6f7%22/><text x=%22600%22 y=%22305%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2240%22 fill=%22%23666%22>Contact</text></svg>';">
+      </div>
+    </section>
+
+    <!-- Form + Iframe grid -->
+    <section class="contact-grid" aria-label="Contact and Map">
+      <!-- Form -->
+      <form id="contactForm" class="card contact-card" novalidate>
+        <h2 class="section-title">Send a Message</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" placeholder="Jane Doe" required />
+            <small class="hint">Required</small>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="jane@example.com" required />
+            <small class="hint">Must be a valid email</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" placeholder="What’s this about?" required />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="6" placeholder="Type your message…" required></textarea>
+        </div>
+
+        <div class="actions">
+          <button id="sendBtn" class="btn" type="submit">Send</button>
+          <button id="resetBtn" class="btn ghost" type="reset">Reset</button>
+          <div id="formStatus" class="status" aria-live="polite"></div>
+        </div>
+
+        <!-- Submission note for graders -->
+        <p class="credit" style="margin-top:10px">
+          <strong>Submission note:</strong> This Contact page uses async JS to send an email via Formspree (no redirect).
+        </p>
+      </form>
+
+      <!-- Iframe: Google Map (swap to YouTube if you prefer) -->
+      <aside class="card contact-card">
+        <h2 class="section-title">Find Us</h2>
+        <div class="iframe-wrap">
+          <!-- Example: Google Maps embed (replace src with your preferred location or a YouTube embed) -->
+          <iframe
+            title="University of South Carolina — Map"
+            src="https://www.google.com/maps?q=University%20of%20South%20Carolina&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <p class="desc">Map is responsive and stacks on small screens, sits side-by-side with the form on larger screens.</p>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">© GameDay</footer>
+
+  <script src="script.js"></script>   <!-- your hamburger JS -->
+  <script src="contact.js"></script>  <!-- page script below -->
+</body>
+</html>

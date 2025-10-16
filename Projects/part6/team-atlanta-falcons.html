@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GameDay — Atlanta Falcons</title>
+  <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sporty-theme.css">
+
+</head>
+<body>
+  <!-- Skip link + Header -->
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="navbar">
+      <div class="brand">
+        <a class="brand-link" href="index.html">
+          <img class="brand-logo" src="images/logo-gameday-wordmark-red.svg" alt="GameDay">
+        </a>
+      </div>
+      <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span aria-hidden="true"></span>
+      </button>
+      <nav id="primary-nav" class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="teams.html" aria-current="page">Teams</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="news.html">News</a>
+        <a href="favorites.html">Favorites</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <section class="hero" aria-label="Team overview">
+      <div class="copy">
+        <h1>Atlanta Falcons</h1>
+        <p class="page-sub">Home: Mercedes-Benz Stadium • Head Coach: Raheem Morris • Division: (NFC South)</p>
+      </div>
+      <div class="media frame">
+        <img
+          src="images/falconsbackground.jpg"
+          alt="Atlanta Falcons at Mercedes-Benz Stadium"
+          onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22><rect width=%221200%22 height=%22600%22 fill=%22%23f5f6f7%22/><text x=%22600%22 y=%22310%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2236%22 fill=%22%23666%22>Atlanta Falcons hero image</text></svg>';"
+        >
+      </div>
+    </section>
+
+    <div class="grid">
+      <article class="card" style="grid-column: span 6;">
+        <h3>Key Stats</h3>
+        <table class="table" aria-label="Key team stats">
+          <tbody>
+            <tr><th>Record 3-2</th><td>—</td></tr>
+            <tr><th>Points For 21.3 (avg)</th><td>—</td></tr>
+            <tr><th>Points Against 17.3 (avg)</th><td>—</td></tr>
+            <tr><th>Form L L W W W (last 5)</th><td>—</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="card" style="grid-column: span 6;">
+        <h3>Roster (sample)</h3>
+        <ul>
+          <li>QB — (Michael Penix Jr)</li>
+          <li>WR — (Drake London)</li>
+          <li>RB — (Bijan Robinson)</li>
+          <li>LB — (Kaden Ellis)</li>
+          <li>CB — (A.J. Terrell)</li>
+        </ul>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">© GameDay</footer>
+  <script src="script.js"></script>
+</body>
+</html>

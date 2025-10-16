@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GameDay — Home</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Skip link + Header -->
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="navbar">
+      <div class="brand">
+        <a class="brand-link" href="index.html">
+          <!-- Add this file to images/: logo-gameday-wordmark-red.svg -->
+          <img class="brand-logo" src="images/logo-gameday-wordmark-red.svg" alt="GameDay">
+        </a>
+      </div>
+
+      <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav id="primary-nav" class="nav" aria-label="Primary">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="teams.html">Teams</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="news.html">News</a>
+        <a href="favorites.html">Favorites</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <section class="hero" aria-label="Welcome">
+      <div class="copy">
+        <h1>All Your Game Day Info — In One Place</h1>
+        <p class="page-sub">
+          Track teams, schedules, and storylines with a clean, mobile-first design.
+          Images and copy are finalized for Part 4; no JS beyond the hamburger.
+        </p>
+      </div>
+      <div class="media frame">
+        <!-- If this filename is a placeholder, keep it but fail gracefully with a temp SVG -->
+        <img
+          src="images/sports.jpg"
+          alt="Players running onto the field at sunset"
+          onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22><rect width=%221200%22 height=%22600%22 fill=%22%23f5f6f7%22/><text x=%22600%22 y=%22310%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2238%22 fill=%22%23666%22>Hero image placeholder</text></svg>';"
+        >
+      </div>
+    </section>
+
+    <h2 class="section-title">Highlights</h2>
+    <div class="grid">
+      <article class="card">
+        <div class="frame"><img src="images/falcons.jpg" alt="Falcons players celebrating a score"></div>
+        <h3>Falcons ride late surge</h3>
+        <p>The Falcons closes strong in the fourth for their third straight win.</p>
+        <div><a class="btn" href="news.html">Read recap</a></div>
+      </article>
+
+      <article class="card">
+        <div class="frame"><img src="images/united.jpg" alt="United forward sprinting down the sideline"></div>
+        <h3>United edges Chealsea</h3>
+        <p>Defense seals it in the final minute to take the series lead.</p>
+        <div><a class="btn" href="news.html">Read recap</a></div>
+      </article>
+
+      <article class="card">
+        <div class="frame"><img src="images/hawks.jpg" alt="Hawks huddle before kickoff"></div>
+        <h3>Hawks regroup on the road</h3>
+        <p>New look lineup aims to reset momentum in a tough venue.</p>
+        <div><a class="btn" href="news.html">Read preview</a></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">© GameDay • Part 4</footer>
+  <script src="script.js"></script>
+</body>
+</html>
