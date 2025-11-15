@@ -4,14 +4,15 @@
 */
 
 /* Page setup */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: Arial, sans-serif;
   background: #f8f9fa;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;   /* ensures page fills viewport */
   margin: 0;
+  padding: 20px 0; /* Add some padding for scrolling */
 }
 
 /* Centered content box */
@@ -23,7 +24,8 @@ body {
   background: #fff;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   width: 95%;
-  max-width: 1200px;   /* allows more room for cards */ 
+  max-width: 1200px;   /* allows more room for cards */
+  margin: 0 auto; /* Center the box horizontally */
 }
 
 /* Headings */
@@ -154,6 +156,10 @@ a:hover { text-decoration: underline; }
 }
 
 /* ========== API Integration Section ========== */
+#api-integration-section {
+  scroll-margin-top: 20px; /* Add space when scrolling to this anchor */
+}
+
 .api-section {
   margin-top: 30px;
   padding: 30px;
@@ -161,6 +167,7 @@ a:hover { text-decoration: underline; }
   border-radius: 12px;
   border: 1px solid #e6e6e6;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  min-height: 400px; /* Ensure section has height even before React loads */
 }
 
 .api-integration-app {

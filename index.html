@@ -325,7 +325,7 @@
     <a class="btn ghost" href="https://game-day-api.onrender.com" target="_blank" rel="noopener">Server (Render)</a>
     <a class="btn ghost" href="https://github.com/HadeemS/game-day" target="_blank" rel="noopener">Client Code (GitHub)</a>
     <a class="btn ghost" href="https://hadeems.github.io/game-day" target="_blank" rel="noopener">Client Website</a>
-    <a class="btn" href="#api-integration-section">View Form & List</a>
+    <a class="btn" href="#api-integration-section" onclick="document.getElementById('api-integration-section').scrollIntoView({behavior: 'smooth', block: 'start'}); return false;">View Form & List</a>
   </div>
 </article>
 
@@ -344,7 +344,50 @@
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  <!-- React Components Script -->
-  <script type="text/babel" src="api-integration.js"></script>
+  <!-- React Components Script - Loaded dynamically to ensure Babel processes it -->
+  <script>
+    // Wait for Babel to be ready, then load and transpile the external script
+    function loadReactApp() {
+      if (typeof Babel === 'undefined') {
+        // Babel not loaded yet, wait a bit
+        setTimeout(loadReactApp, 100);
+        return;
+      }
+      
+      fetch('api-integration.js')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to load api-integration.js');
+          }
+          return response.text();
+        })
+        .then(code => {
+          // Create a script element with type="text/babel" so Babel processes it
+          const script = document.createElement('script');
+          script.type = 'text/babel';
+          script.text = code;
+          document.body.appendChild(script);
+        })
+        .catch(error => {
+          console.error('Error loading api-integration.js:', error);
+          const root = document.getElementById('react-root');
+          if (root) {
+            root.innerHTML = 
+              '<div style="color: #c0392b; padding: 20px; background: #ffe6e6; border-radius: 8px; margin: 20px 0;">' +
+              '<strong>Error loading React components:</strong><br>' +
+              error.message + '<br>' +
+              'Please check that api-integration.js exists in the same directory as index.html' +
+              '</div>';
+          }
+        });
+    }
+    
+    // Start loading when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadReactApp);
+    } else {
+      loadReactApp();
+    }
+  </script>
 </body>
 </html>
