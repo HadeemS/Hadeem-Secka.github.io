@@ -309,8 +309,42 @@
   </div>
 </article>
 
+<!-- Project – API Integration (React Form + Server) -->
+<article class="card">
+  <a class="thumb" href="#api-integration-section">
+    <img
+      src="images/Project7.png"
+      alt="Thumbnail for API Integration Project"
+      onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22><rect width=%221200%22 height=%22600%22 fill=%22%23f5f6f7%22/><text x=%22600%22 y=%22305%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2240%22 fill=%22%23666%22>API Integration</text><text x=%22600%22 y=%23350%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2220%22 fill=%22%23999%22>React Form + Server</text></svg>';"
+    />
+  </a>
+  <h3>Project — API Integration</h3>
+  <p class="desc">React form with POST request, client-side validation, and automatic list updates. Server-side Joi validation.</p>
+  <div class="actions vertical">
+    <a class="btn ghost" href="https://github.com/HadeemS/game-day-api" target="_blank" rel="noopener">Server Code (GitHub)</a>
+    <a class="btn ghost" href="https://game-day-api.onrender.com" target="_blank" rel="noopener">Server (Render)</a>
+    <a class="btn ghost" href="https://github.com/HadeemS/game-day" target="_blank" rel="noopener">Client Code (GitHub)</a>
+    <a class="btn ghost" href="https://hadeems.github.io/game-day" target="_blank" rel="noopener">Client Website</a>
+    <a class="btn" href="#api-integration-section">View Form & List</a>
+  </div>
+</article>
+
 
     </section>
+
+    <!-- API Integration Section -->
+    <h2 id="api-integration-section">API Integration — Add Teams</h2>
+    <section class="api-section" aria-label="API Integration">
+      <div id="react-root"></div>
+    </section>
   </div>
+
+  <!-- React CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- React Components Script -->
+  <script type="text/babel" src="api-integration.js"></script>
 </body>
 </html>
