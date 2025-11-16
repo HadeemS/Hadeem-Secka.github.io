@@ -322,13 +322,12 @@
   <p class="desc">React form with POST request, client-side validation, and automatic list updates. Server-side Joi validation.</p>
   <div class="actions vertical">
     <a class="btn ghost" href="https://github.com/HadeemS/game-day-api" target="_blank" rel="noopener">Server Code (GitHub)</a>
-    <a class="btn ghost" href="https://game-day-api.onrender.com" target="_blank" rel="noopener">Server (Render)</a>
+    <a class="btn ghost" href="https://game-day-api-1.onrender.com" target="_blank" rel="noopener">Server (Render)</a>
     <a class="btn ghost" href="https://github.com/HadeemS/game-day" target="_blank" rel="noopener">Client Code (GitHub)</a>
     <a class="btn ghost" href="https://hadeems.github.io/game-day" target="_blank" rel="noopener">Client Website</a>
     <a class="btn" href="#api-integration-section" onclick="document.getElementById('api-integration-section').scrollIntoView({behavior: 'smooth', block: 'start'}); return false;">View Form & List</a>
   </div>
 </article>
-
 
     </section>
 
@@ -342,44 +341,120 @@
   <!-- React CDN -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script>
+    // Suppress source map warnings before loading Babel
+    const originalWarn = console.warn;
+    console.warn = function(...args) {
+      if (args[0] && typeof args[0] === 'string' && args[0].includes('source map')) {
+        return; // Suppress source map warnings
+      }
+      originalWarn.apply(console, args);
+    };
+  </script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script>
+    // Restore console.warn after Babel loads
+    setTimeout(() => {
+      console.warn = console.warn || (() => {});
+    }, 1000);
+  </script>
 
   <!-- React Components Script - Loaded dynamically to ensure Babel processes it -->
   <script>
-    // Wait for Babel to be ready, then load and transpile the external script
+    // Show loading message
+    const root = document.getElementById('react-root');
+    if (root) {
+      root.innerHTML = '<p style="padding: 20px; text-align: center; color: #666;">Loading React components...</p>';
+    }
+    
+    // Wait for React, ReactDOM, and Babel to be ready, then load and transpile the external script
     function loadReactApp() {
-      if (typeof Babel === 'undefined') {
-        // Babel not loaded yet, wait a bit
+      // Check if all required libraries are loaded
+      if (typeof React === 'undefined') {
+        console.log('Waiting for React...');
         setTimeout(loadReactApp, 100);
         return;
       }
       
+      if (typeof ReactDOM === 'undefined') {
+        console.log('Waiting for ReactDOM...');
+        setTimeout(loadReactApp, 100);
+        return;
+      }
+      
+      if (typeof Babel === 'undefined') {
+        console.log('Waiting for Babel...');
+        setTimeout(loadReactApp, 100);
+        return;
+      }
+      
+      console.log('All libraries loaded, fetching api-integration.js...');
+      
       fetch('api-integration.js')
         .then(response => {
           if (!response.ok) {
-            throw new Error('Failed to load api-integration.js');
+            throw new Error(`HTTP ${response.status}: Failed to load api-integration.js`);
           }
           return response.text();
         })
         .then(code => {
-          // Create a script element with type="text/babel" so Babel processes it
-          const script = document.createElement('script');
-          script.type = 'text/babel';
-          script.text = code;
-          document.body.appendChild(script);
+          console.log('Code loaded, transpiling with Babel...');
+          
+          try {
+            // Manually transform JSX with Babel Standalone
+            // Babel Standalone includes react preset - use it directly
+            const transformedCode = Babel.transform(code, {
+              presets: ['react']
+            }).code;
+            
+            console.log('Code transformed, executing...');
+            
+            // Wrap in IIFE to ensure proper scope
+            const wrappedCode = `
+              (function() {
+                ${transformedCode}
+              })();
+            `;
+            
+            // Create and execute the transformed script
+            const script = document.createElement('script');
+            script.text = wrappedCode;
+            
+            // Add error handler
+            script.onerror = function(error) {
+              console.error('Script execution error:', error);
+              showError('Error executing React components. Check browser console for details.');
+            };
+            
+            document.body.appendChild(script);
+            
+            // Give React a moment to render
+            setTimeout(() => {
+              const checkRoot = document.getElementById('react-root');
+              if (checkRoot && checkRoot.innerHTML.includes('Loading React components')) {
+                console.warn('React components may not have rendered. Check for errors above.');
+              }
+            }, 1000);
+          } catch (transformError) {
+            console.error('Babel transformation error:', transformError);
+            console.error('Error details:', transformError.stack);
+            showError('Error transpiling React code: ' + transformError.message + '<br>Check console for details.');
+          }
         })
         .catch(error => {
           console.error('Error loading api-integration.js:', error);
-          const root = document.getElementById('react-root');
-          if (root) {
-            root.innerHTML = 
-              '<div style="color: #c0392b; padding: 20px; background: #ffe6e6; border-radius: 8px; margin: 20px 0;">' +
-              '<strong>Error loading React components:</strong><br>' +
-              error.message + '<br>' +
-              'Please check that api-integration.js exists in the same directory as index.html' +
-              '</div>';
-          }
+          showError('Error loading React components: ' + error.message + '<br>Please check that api-integration.js exists in the same directory as index.html');
         });
+    }
+    
+    function showError(message) {
+      const root = document.getElementById('react-root');
+      if (root) {
+        root.innerHTML = 
+          '<div style="color: #c0392b; padding: 20px; background: #ffe6e6; border-radius: 8px; margin: 20px 0;">' +
+          '<strong>Error:</strong><br>' + message +
+          '</div>';
+      }
     }
     
     // Start loading when DOM is ready
