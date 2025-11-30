@@ -34,6 +34,33 @@ async function apiCreate(payload) {
   return data.game || data.item;
 }
 
+async function apiUpdate(id, payload) {
+  const r = await fetch(`${API_BASE}/api/games/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...payload, price: Number(payload.price) })
+  });
+  const data = await r.json().catch(() => null);
+  if (!r.ok) {
+    const msg = data?.message || data?.error || "Server error";
+    const extra = data?.details?.join(" ") || "";
+    throw new Error(extra ? `${msg} ${extra}` : msg);
+  }
+  return data.game || data;
+}
+
+async function apiDelete(id) {
+  const r = await fetch(`${API_BASE}/api/games/${id}`, {
+    method: "DELETE"
+  });
+  const data = await r.json().catch(() => null);
+  if (!r.ok) {
+    const msg = data?.message || data?.error || "Server error";
+    throw new Error(msg);
+  }
+  return data;
+}
+
 // --- client-side validation mirroring server Joi ---
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/;
@@ -53,21 +80,21 @@ function validateGame(v) {
   if (v.price === "" || v.price === null || v.price === undefined) e.price = "Price is required";
   else if (Number.isNaN(Number(v.price))) e.price = "Price must be a number";
   else if (Number(v.price) < 0) e.price = "Price cannot be negative";
-  else if (Number(v.price) > 10000) e.price = "Price must be ≤ $10,000";
+  else if (Number(v.price) > 5000) e.price = "Price must be ≤ $5,000";
   if (!v.img?.trim()) e.img = "Image path is required";
   else if (!IMG_RE.test(v.img.trim())) e.img = "Use /images/<file>.png|jpg|jpeg|webp";
   if (!v.summary?.trim()) e.summary = "Summary is required";
-  else if (v.summary.trim().length < 5) e.summary = "Summary must be ≥ 5 chars";
-  else if (v.summary.trim().length > 240) e.summary = "Summary must be ≤ 240 chars";
+  else if (v.summary.trim().length < 10) e.summary = "Summary must be ≥ 10 chars";
+  else if (v.summary.trim().length > 280) e.summary = "Summary must be ≤ 280 chars";
   return e;
 }
 
 // --- UI components (JSX compiled by Babel Standalone you already load) ---
-function Card({ game }) {
+function Card({ game, onEdit, onDelete }) {
   return (
     <article style={{
       background:"#fff", border:"1px solid #eee", borderRadius:16, padding:12,
-      boxShadow:"0 6px 16px rgba(0,0,0,.05)"
+      boxShadow:"0 6px 16px rgba(0,0,0,.05)", position:"relative"
     }}>
       <img
         src={apiImg(game.img)}
@@ -80,11 +107,41 @@ function Card({ game }) {
       <p style={{margin:"6px 0 0"}}><strong>{fmtDate(game.date)} @ {game.time}</strong></p>
       <p style={{margin:"6px 0"}}>{game.summary}</p>
       <p style={{margin:0, fontWeight:700}}>{fmtMoney(game.price)}</p>
+      <div style={{display:"flex",gap:8,marginTop:12}}>
+        <button 
+          onClick={() => onEdit(game)}
+          style={{
+            flex:1, padding:"8px 12px", background:"#3b82f6", color:"#fff",
+            border:"none", borderRadius:8, cursor:"pointer", fontSize:14,
+            fontWeight:500, transition:"background 0.2s"
+          }}
+          onMouseOver={(e) => e.target.style.background = "#2563eb"}
+          onMouseOut={(e) => e.target.style.background = "#3b82f6"}
+        >
+          Edit
+        </button>
+        <button 
+          onClick={() => {
+            if (window.confirm(`Delete "${game.title}"?`)) {
+              onDelete(game._id);
+            }
+          }}
+          style={{
+            flex:1, padding:"8px 12px", background:"#dc2626", color:"#fff",
+            border:"none", borderRadius:8, cursor:"pointer", fontSize:14,
+            fontWeight:500, transition:"background 0.2s"
+          }}
+          onMouseOver={(e) => e.target.style.background = "#b91c1c"}
+          onMouseOut={(e) => e.target.style.background = "#dc2626"}
+        >
+          Delete
+        </button>
+      </div>
     </article>
   );
 }
 
-function Form({ onAdded }) {
+function Form({ onAdded, editingGame, onCancelEdit }) {
   const [form, setForm] = React.useState({
     title:"", league:"NBA", date:"", time:"",
     venue:"", city:"", price:"0",
@@ -95,6 +152,35 @@ function Form({ onAdded }) {
   const [status, setStatus] = React.useState("");
   const [busy, setBusy] = React.useState(false);
 
+  // Load editing game data when editingGame changes
+  React.useEffect(() => {
+    if (editingGame) {
+      setForm({
+        title: editingGame.title || "",
+        league: editingGame.league || "NBA",
+        date: editingGame.date || "",
+        time: editingGame.time || "",
+        venue: editingGame.venue || "",
+        city: editingGame.city || "",
+        price: String(editingGame.price || "0"),
+        img: editingGame.img || "/images/usc-vs-clemson.jpg",
+        summary: editingGame.summary || ""
+      });
+      setErrors({});
+      setStatus("");
+    } else {
+      // Reset form when not editing
+      setForm({
+        title:"", league:"NBA", date:"", time:"",
+        venue:"", city:"", price:"0",
+        img:"/images/usc-vs-clemson.jpg",
+        summary:""
+      });
+      setErrors({});
+      setStatus("");
+    }
+  }, [editingGame]);
+
   function update(e){ setForm(f => ({ ...f, [e.target.name]: e.target.value })); setStatus(""); }
 
   async function submit(e){
@@ -103,16 +189,29 @@ function Form({ onAdded }) {
     setErrors(err);
     if (Object.keys(err).length) { setStatus("Please fix the highlighted fields."); return; }
     try {
-      setBusy(true); setStatus("Saving…");
-      const created = await apiCreate(form);
-      onAdded(created);
-      setForm({
-        title:"", league:"NBA", date:"", time:"",
-        venue:"", city:"", price:"0", img:"/images/usc-vs-clemson.jpg", summary:""
-      });
-      setErrors({});
-      setStatus("Added! ✅");
-      setTimeout(()=>setStatus(""), 1500);
+      setBusy(true); setStatus(editingGame ? "Updating…" : "Saving…");
+      
+      if (editingGame) {
+        // Update existing game
+        const updated = await apiUpdate(editingGame._id, form);
+        onAdded(updated);
+        setStatus("Updated! ✅");
+        setTimeout(() => {
+          setStatus("");
+          if (onCancelEdit) onCancelEdit();
+        }, 1500);
+      } else {
+        // Create new game
+        const created = await apiCreate(form);
+        onAdded(created);
+        setForm({
+          title:"", league:"NBA", date:"", time:"",
+          venue:"", city:"", price:"0", img:"/images/usc-vs-clemson.jpg", summary:""
+        });
+        setErrors({});
+        setStatus("Added! ✅");
+        setTimeout(()=>setStatus(""), 1500);
+      }
     } catch (ex) {
       setStatus(ex.message || "Server error");
     } finally {
@@ -139,7 +238,21 @@ function Form({ onAdded }) {
       background:"#fff", border:"1px solid #eee", borderRadius:16, padding:16,
       boxShadow:"0 6px 16px rgba(0,0,0,.05)", margin:"16px 0"
     }} noValidate>
-      <h2 style={{marginTop:0}}>Add a Game (POST /api/games)</h2>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+        <h2 style={{margin:0}}>{editingGame ? `Edit Game (PUT /api/games/${editingGame._id})` : "Add a Game (POST /api/games)"}</h2>
+        {editingGame && (
+          <button 
+            type="button"
+            onClick={onCancelEdit}
+            style={{
+              padding:"6px 12px", background:"#64748b", color:"#fff",
+              border:"none", borderRadius:6, cursor:"pointer", fontSize:14
+            }}
+          >
+            Cancel
+          </button>
+        )}
+      </div>
       <div style={{display:"grid",gap:12,gridTemplateColumns:"repeat(2,minmax(0,1fr))"}}>
         <Field name="title" label="Title" placeholder="Lakers vs Celtics"/>
         <label>League
@@ -158,32 +271,60 @@ function Form({ onAdded }) {
           <Field name="summary" label="Summary" type="textarea"/>
         </div>
       </div>
-      <div style={{display:"flex",justifyContent:"flex-end",gap:10,marginTop:10}}>
-        {status && <span>{status}</span>}
-        <button disabled={busy}>{busy ? "Adding…" : "Add Game"}</button>
+      <div style={{display:"flex",justifyContent:"flex-end",gap:10,marginTop:10,alignItems:"center"}}>
+        {status && <span style={{color:status.includes("✅") ? "#059669" : status.includes("error") ? "#dc2626" : "#64748b"}}>{status}</span>}
+        <button disabled={busy} style={{
+          padding:"10px 20px", background:editingGame ? "#3b82f6" : "#059669",
+          color:"#fff", border:"none", borderRadius:8, cursor:busy ? "not-allowed" : "pointer",
+          fontSize:15, fontWeight:500, opacity:busy ? 0.6 : 1
+        }}>
+          {busy ? (editingGame ? "Updating…" : "Adding…") : (editingGame ? "Update Game" : "Add Game")}
+        </button>
       </div>
     </form>
   );
 }
 
-function List() {
+function List({ onEdit, refreshTrigger }) {
   const [items, setItems] = React.useState([]);
   const [err, setErr] = React.useState("");
+  const [deletingId, setDeletingId] = React.useState(null);
 
   const load = React.useCallback(() => {
     setErr("");
     apiList().then(setItems).catch(e => setErr(e.message));
   }, []);
 
-  React.useEffect(() => { load(); }, [load]);
+  React.useEffect(() => { load(); }, [load, refreshTrigger]);
+
+  async function handleDelete(id) {
+    try {
+      setDeletingId(id);
+      await apiDelete(id);
+      // Remove from list immediately
+      setItems(prev => prev.filter(g => g._id.toString() !== id.toString()));
+      setDeletingId(null);
+    } catch (ex) {
+      setErr(ex.message || "Failed to delete game");
+      setDeletingId(null);
+    }
+  }
 
   return (
     <div>
       <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",margin:"8px 0"}}>
         <h3 style={{margin:0}}>Games List ({items.length})</h3>
-        <button onClick={load}>Refresh</button>
+        <button 
+          onClick={load}
+          style={{
+            padding:"8px 16px", background:"#64748b", color:"#fff",
+            border:"none", borderRadius:8, cursor:"pointer", fontSize:14
+          }}
+        >
+          Refresh
+        </button>
       </div>
-      {err && <p style={{color:"#b91c1c"}}>{err}</p>}
+      {err && <p style={{color:"#b91c1c",padding:12,background:"#fee2e2",borderRadius:8}}>{err}</p>}
       {items.length === 0 ? (
         <p>No games yet — add your first one above!</p>
       ) : (
@@ -191,7 +332,14 @@ function List() {
           {items
             .slice()
             .sort((a,b)=> new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`))
-            .map(g => <Card key={g._id} game={g} />)}
+            .map(g => (
+              <Card 
+                key={g._id} 
+                game={g} 
+                onEdit={onEdit}
+                onDelete={handleDelete}
+              />
+            ))}
         </div>
       )}
     </div>
@@ -200,11 +348,41 @@ function List() {
 
 function App(){
   const [lastAdded, setLastAdded] = React.useState(null);
+  const [editingGame, setEditingGame] = React.useState(null);
+  const [refreshTrigger, setRefreshTrigger] = React.useState(0);
+
+  function handleAdded(game) {
+    setLastAdded(game);
+    setRefreshTrigger(prev => prev + 1);
+    if (editingGame) {
+      setEditingGame(null);
+    }
+  }
+
+  function handleEdit(game) {
+    setEditingGame(game);
+    // Scroll to form
+    setTimeout(() => {
+      const form = document.querySelector('form');
+      if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+
+  function handleCancelEdit() {
+    setEditingGame(null);
+  }
+
   return (
     <div className="api-integration-app">
-      <Form onAdded={setLastAdded}/>
-      {/* Changing key triggers List remount/reload after add; List also has a Refresh button */}
-      <List key={lastAdded?._id || "list"} />
+      <Form 
+        onAdded={handleAdded}
+        editingGame={editingGame}
+        onCancelEdit={handleCancelEdit}
+      />
+      <List 
+        onEdit={handleEdit}
+        refreshTrigger={refreshTrigger}
+      />
     </div>
   );
 }
